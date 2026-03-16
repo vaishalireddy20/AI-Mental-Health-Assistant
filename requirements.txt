@@ -1,0 +1,8 @@
+flask
+textblob
+nltk
+matplotlib
+SpeechRecognition
+sounddevice
+soundfile
+gunicorn

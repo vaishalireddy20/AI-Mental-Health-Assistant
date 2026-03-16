@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Mental Health Therapist</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#89f7fe,#66a6ff,#c3cfe2);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.chat-container{
+
+width:500px;
+background:white;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+padding:20px;
+
+}
+
+.chat-box{
+
+height:350px;
+overflow-y:auto;
+border:1px solid #ddd;
+padding:10px;
+border-radius:10px;
+background:#f7f7f7;
+
+}
+
+.user{
+
+text-align:right;
+margin:10px;
+
+}
+
+.user span{
+background:#4facfe;
+color:white;
+padding:10px 14px;
+border-radius:18px;
+display:inline-block;
+max-width:70%;
+word-wrap:break-word;
+white-space:pre-line;
+}
+
+.bot{
+
+text-align:left;
+margin:10px;
+
+}
+
+.bot span{
+background:#e6e6e6;
+padding:10px 14px;
+border-radius:18px;
+display:inline-block;
+max-width:70%;
+word-wrap:break-word;
+white-space:pre-line;
+}
+
+input{
+
+width:65%;
+padding:10px;
+border-radius:8px;
+border:1px solid gray;
+
+}
+
+button{
+
+padding:10px;
+border:none;
+border-radius:8px;
+background:#4facfe;
+color:white;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#3b8de0;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="chat-container">
+
+<h2>🧠 Mental Health Therapist</h2>
+
+<div id="chatbox" class="chat-box"></div>
+
+<br>
+
+<input id="message" placeholder="Type your message">
+
+<button onclick="send()">Send</button>
+<button onclick="voice()">🎤</button>
+<button onclick="meditation()">🧘</button>
+
+<br><br>
+
+<audio id="meditate" controls style="display:none">
+<source src="/static/meditation.mp3">
+</audio>
+
+<h3>Emergency Support</h3>
+
+☎ National Mental Health Helpline 915298721
+
+</div>
+
+<script>
+
+function send(){
+
+let msg=document.getElementById("message").value;
+
+if(msg=="") return;
+
+let chat=document.getElementById("chatbox");
+
+chat.innerHTML +=
+"<div class='user'><span>"+msg+"</span></div>";
+
+fetch("/get_response",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+message:msg
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+chat.innerHTML +=
+"<div class='bot'><span>"+data.reply+"</span></div>";
+
+chat.scrollTop = chat.scrollHeight;
+
+})
+
+.catch(error=>{
+console.log(error);
+});
+
+document.getElementById("message").value="";
+
+}
+
+
+function voice(){
+
+if(!('webkitSpeechRecognition' in window)){
+alert("Voice recognition not supported in this browser");
+return;
+}
+
+let recognition=new webkitSpeechRecognition();
+
+recognition.lang="en-US";
+
+recognition.onresult=function(event){
+
+document.getElementById("message").value=
+event.results[0][0].transcript;
+
+}
+
+recognition.start();
+
+}
+
+function meditation(){
+
+let audio=document.getElementById("meditate");
+
+audio.style.display="block";
+
+audio.play();
+
+}
+
+document.getElementById("message").addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+send();
+}
+
+});
+
+</script>
+
+
+</body>
+</html>

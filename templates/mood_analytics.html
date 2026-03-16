@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Mood Analytics</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#89f7fe,#66a6ff);
+text-align:center;
+}
+
+canvas{
+width:600px;
+margin:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Mood Analytics</h1>
+
+<canvas id="moodChart"></canvas>
+
+<script>
+
+let moods = JSON.parse('{{ moods | tojson | safe }}');
+let counts = JSON.parse('{{ counts | tojson | safe }}');
+
+let ctx = document.getElementById("moodChart").getContext("2d");
+
+new Chart(ctx,{
+type:"pie",
+data:{
+labels:moods,
+datasets:[{
+data:counts
+}]
+}
+});
+
+</script>
+
+</body>
+</html>

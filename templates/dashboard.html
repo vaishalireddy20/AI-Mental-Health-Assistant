@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mental Health Assistant</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#667eea,#764ba2);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.container{
+
+background:white;
+padding:40px;
+border-radius:15px;
+text-align:center;
+width:420px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+}
+
+button{
+
+background:#6c63ff;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:8px;
+cursor:pointer;
+margin:10px;
+
+}
+
+button:hover{
+background:#5548d9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Welcome to Mental Health Assistant</h2>
+
+<br>
+
+<a href="/chat">
+<button>Start Chat Therapy</button>
+</a>
+
+<br>
+
+<a href="/mood_analytics">
+<button>View Mood Analytics</button>
+</a>
+
+<br><br>
+
+<audio controls>
+<source src="/static/meditation.mp3">
+</audio>
+
+<br><br>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<canvas id="moodChart"></canvas>
+
+<script>
+
+var moods = (( moods | tojson ));
+var counts = (( counts | tojson ));
+
+var ctx = document.getElementById("moodChart").getContext("2d");
+
+new Chart(ctx,{
+type:"pie",
+data:{
+labels:moods,
+datasets:[{
+data:counts,
+backgroundColor:[
+"#4facfe",
+"#ff6b6b",
+"#ffd93d"
+]
+}]
+}
+});
+
+</script>
+
+<h3>Emergency Support</h3>
+
+☎ National Mental Health Helpline <b>915298721</b>
+
+</div>
+
+</body>
+</html>
