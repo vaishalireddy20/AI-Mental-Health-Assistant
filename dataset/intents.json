@@ -1,0 +1,184 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hi", "hello", "hey", "good morning", "good evening"],
+      "responses": [
+        "Hello! I'm here to support you. How are you feeling today?",
+        "Hi there! Tell me what's on your mind.",
+        "Hey! I'm here to listen."
+      ]
+    },
+    {
+      "tag": "sad",
+      "patterns": ["I feel sad", "I am depressed", "I feel low", "I feel like crying", "I am unhappy"],
+      "responses": [
+        "I'm really sorry you're feeling this way. You are not alone.",
+        "It’s okay to feel sad sometimes. Do you want to talk about it?",
+        "I'm here for you. Sharing your feelings can help."
+      ]
+    },
+    {
+      "tag": "anxiety",
+      "patterns": ["I feel anxious", "I have anxiety", "I feel nervous", "I am overthinking", "I can't relax"],
+      "responses": [
+        "Take a deep breath. You're safe right now.",
+        "Try grounding yourself by focusing on your surroundings.",
+        "Let’s slow things down together."
+      ]
+    },
+    {
+      "tag": "stress",
+      "patterns": ["I am stressed", "too much pressure", "I feel overwhelmed", "I can't handle this", "I have too much work"],
+      "responses": [
+        "It sounds overwhelming. Try breaking tasks into smaller steps.",
+        "Take a short break and breathe slowly.",
+        "You don’t have to do everything at once."
+      ]
+    },
+    {
+      "tag": "anger",
+      "patterns": ["I am angry", "I feel mad", "I am frustrated", "I feel irritated"],
+      "responses": [
+        "Anger is natural. Let's try to calm your mind.",
+        "Take a few deep breaths and step away for a moment.",
+        "Writing your thoughts down might help release anger."
+      ]
+    },
+    {
+      "tag": "happy",
+      "patterns": ["I feel happy", "I am feeling good", "I am excited", "I feel great"],
+      "responses": [
+        "That's wonderful! 😊 What made you feel this way?",
+        "I'm glad you're feeling good!",
+        "Keep enjoying these positive moments."
+      ]
+    },
+    {
+      "tag": "lonely",
+      "patterns": ["I feel lonely", "I have no one", "I feel alone", "no one understands me"],
+      "responses": [
+        "I'm here with you. You are not alone.",
+        "It can be tough feeling this way. Want to share more?",
+        "You matter, and your feelings are valid."
+      ]
+    },
+    {
+      "tag": "sleep",
+      "patterns": ["I can't sleep", "insomnia", "I have trouble sleeping", "I can't fall asleep"],
+      "responses": [
+        "Try relaxing your mind before bed.",
+        "Avoid screens and take deep breaths.",
+        "Listening to calm music may help you sleep."
+      ]
+    },
+    {
+      "tag": "motivation",
+      "patterns": ["I feel unmotivated", "I don't want to do anything", "I feel lazy", "I have no energy"],
+      "responses": [
+        "Start with small steps. Progress is progress.",
+        "Even small efforts count.",
+        "Try doing one simple task to get started."
+      ]
+    },
+    {
+      "tag": "crisis",
+      "patterns": ["I want to die", "I want to kill myself", "I feel like ending my life", "I can't go on"],
+      "responses": [
+        "I'm really sorry you're feeling this way. You deserve support.",
+        "Please reach out to a trusted person or helpline immediately.",
+        "You are not alone. Help is available."
+      ]
+    },
+    {
+      "tag": "fear",
+      "patterns": ["I feel scared", "I am afraid", "I feel fear", "I am terrified", "something bad will happen"],
+      "responses": [
+        "It's okay to feel scared sometimes. You're safe right now.",
+        "Take a deep breath. Fear can pass with time.",
+        "Would you like to talk about what's making you feel afraid?"
+      ]
+    },
+    {
+      "tag": "guilt",
+      "patterns": ["I feel guilty", "I regret my actions", "I made a mistake", "I feel bad about what I did"],
+      "responses": [
+        "It's okay to make mistakes. That's how we grow.",
+        "Be kind to yourself. Everyone has regrets.",
+        "Would you like to talk about what happened?"
+      ]
+    },
+    {
+      "tag": "grief",
+      "patterns": ["I lost someone", "someone close to me died", "I am grieving", "I miss someone", "I feel empty after loss"],
+      "responses": [
+        "I'm really sorry for your loss. That must be very hard.",
+        "Grief takes time. Be gentle with yourself.",
+        "I'm here if you want to talk about them."
+      ]
+    },
+    {
+      "tag": "burnout",
+      "patterns": ["I feel burned out", "I am exhausted mentally", "I can't continue like this", "I feel drained", "I am tired of everything"],
+      "responses": [
+        "It sounds like you're experiencing burnout.",
+        "Taking breaks is important. Rest matters.",
+        "Try to step back and recharge your energy."
+      ]
+    },
+    {
+      "tag": "overthinking",
+      "patterns": ["I overthink everything", "my mind won't stop", "I keep thinking too much", "I can't stop thinking"],
+      "responses": [
+        "Overthinking can be exhausting.",
+        "Try focusing on your breath to calm your mind.",
+        "Ground yourself in the present moment."
+      ]
+    },
+    {
+      "tag": "panic",
+      "patterns": ["I am having a panic attack", "I feel panic", "I can't breathe", "my heart is racing fast"],
+      "responses": [
+        "You're okay. Try to take slow deep breaths.",
+        "Focus on breathing slowly: inhale and exhale.",
+        "This feeling will pass. Stay with me."
+      ]
+    },
+    {
+      "tag": "confusion",
+      "patterns": ["I feel confused", "I don't know what to do", "I feel lost", "I am unsure about everything"],
+      "responses": [
+        "It's okay to feel unsure sometimes.",
+        "Take things one step at a time.",
+        "Would you like help figuring things out?"
+      ]
+    },
+    {
+      "tag": "relationship_issues",
+      "patterns": ["I had a fight with my friend", "relationship problems", "my partner is ignoring me", "I feel hurt in my relationship"],
+      "responses": [
+        "Relationships can be challenging.",
+        "Communication can help resolve misunderstandings.",
+        "Do you want to talk about what happened?"
+      ]
+    },
+    {
+      "tag": "self_doubt",
+      "patterns": ["I doubt myself", "I don't believe in myself", "I feel insecure", "I lack confidence"],
+      "responses": [
+        "Self-doubt is common, but it doesn't define you.",
+        "You are capable of more than you think.",
+        "Try focusing on your strengths."
+      ]
+    },
+    {
+      "tag": "boredom",
+      "patterns": ["I feel bored", "nothing interests me", "I have nothing to do", "I feel dull"],
+      "responses": [
+        "Maybe trying something new could help.",
+        "Even small activities can boost your mood.",
+        "Would you like some suggestions?"
+      ]
+    }
+  ]
+}

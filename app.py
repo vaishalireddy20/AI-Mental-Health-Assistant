@@ -2,6 +2,25 @@ from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3
 import random
 from textblob import TextBlob
+import pickle
+import json
+# Load trained AI model
+model = pickle.load(open("model.pkl", "rb"))
+vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+
+# Load dataset
+with open("dataset/intents.json") as file:
+    intents = json.load(file)
+def get_ai_response(text):
+
+    X = vectorizer.transform([text])
+    tag = model.predict(X)[0]
+
+    for intent in intents["intents"]:
+        if intent["tag"] == tag:
+            return random.choice(intent["responses"]), tag
+
+    return "I'm here to listen.", "neutral"
 
 from emotion_model import detect_emotion
 from crisis_detection import detect_crisis
@@ -169,120 +188,29 @@ def chat():
 @app.route("/get_response", methods=["POST"])
 def response():
 
-    
     data = request.get_json()
+    user_text = data.get("message", "").lower()
 
-    user_text = data.get("message","").lower()
+    # AI response
+    reply, emotion = get_ai_response(user_text)
 
-    print("User message:", user_text)
-
-    emotion = detect_mood(user_text)
-    
-    # Save mood to database
+    # Save mood
     save_mood(session.get("user", "guest"), user_text, emotion)
 
+    # Crisis detection override
     if detect_crisis(user_text):
-
-        return jsonify({
-            "reply":
+        reply = (
             "I'm really sorry you're feeling this way.\n\n"
-            "Please contact the Mental Health Helpline immediately.\n"
-            "☎ 915298721",
-            "emotion": emotion
-        })
-
-    # SAD RESPONSES
-    if "sad" in user_text:
-
-        responses = [
-            "I'm really sorry you're feeling sad. I'm here to listen.",
-            "It sounds like you're going through a tough time.",
-            "I'm here for you. "
-        ]
-
-        tips = (
-            "\n\nHere are a few things that may help:\n"
-            "• Take 5 slow deep breaths\n"
-            "• Listen to calming music\n"
-            "• Go for a short walk\n"
-            "• Talk to someone you trust\n"
-            "Would you like a short breathing exercise?"
+            "Please contact a mental health helpline immediately.\n"
+            "📞 915298721"
         )
 
-        reply = random.choice(responses) + tips
-
-    # ANXIETY
-    elif "anxious" in user_text or "anxiety" in user_text:
-
-        reply = (
-            "Feeling anxious can be overwhelming.\n\n"
-            "Try this grounding exercise:\n"
-            "1️⃣ Name 5 things you see\n"
-            "2️⃣ Touch 4 things around you\n"
-            "3️⃣ Listen for 3 sounds\n"
-            "4️⃣ Take 2 deep breaths\n"
-            "5️⃣ Think of 1 positive thought\n"
-            "Would you like a short breathing exercise?"
-        )
-
-    # ANGER
-    elif "angry" in user_text or "mad" in user_text:
-
-        reply = (
-            "It sounds like you're feeling angry.\n\n"
-            "Try these calming techniques:\n"
-            "• Deep breathing\n"
-            "• Short walk\n"
-            "• Write your thoughts down\n"
-            "Would you like a short breathing exercise?"
-        )
-
-    # STRESS
-    elif "stress" in user_text or "stressed" in user_text:
-
-        reply = (
-            "Stress can feel heavy sometimes.\n\n"
-            "Quick relief tips:\n"
-            "• Stretch your body\n"
-            "• Drink water\n"
-            "• Close your eyes for a minute\n"
-            "Would you like a short breathing exercise?"
-        )
-
-    # HAPPY
-    elif "happy" in user_text:
-
-        reply = (
-            "That's wonderful to hear! 😊\n\n"
-            "What made you feel happy today?"
-        )
-
-    # BREATHING EXERCISE
-    elif "yes" in user_text:
-
-        reply = (
-            "Great! Let's try a breathing exercise.\n\n"
-            "Inhale for 4 seconds\n"
-            "Hold for 4 seconds\n"
-            "Exhale for 6 seconds\n\n"
-            "Repeat 5 times."
-        )
-
-    else:
-
-        reply = (
-            "Thank you for sharing that with me.\n\n"
-            "Would you like:\n"
-            "• Relaxation tips\n"
-            "• Breathing exercises\n"
-            "• Stress management"
-        )
-
-    return jsonify({"reply": reply, "emotion": emotion})
-
-
+    return jsonify({
+        "reply": reply,
+        "emotion": emotion
+    })
 # -----------------------------
 # RUN APP
 # -----------------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True, port=5001)
